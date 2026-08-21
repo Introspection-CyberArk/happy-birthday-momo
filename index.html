@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎂 Happy Birthday Poonam!</title>
+    <style>
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: default;
+            user-select: none;
+        }
+
+        /* ============================================================
+           STARS BACKGROUND
+           ============================================================ */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--d) ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.2;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* ============================================================
+           CONTAINER
+           ============================================================ */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* ============================================================
+           GIFT BOX
+           ============================================================ */
+        .gift-box {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 20px;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        /* - Box Body - */
+        .box-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 220px;
+            height: 160px;
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            border-radius: 8px 8px 12px 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 -8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .box-body::before,
+        .box-body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.08);
+        }
+        .box-body::before {
+            left: 0;
+            border-radius: 8px 0 0 0;
+        }
+        .box-body::after {
+            right: 0;
+            border-radius: 0 8px 0 0;
+        }
+
+        /* - Ribbon Horizontal - */
+        .ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 28px;
+            background: linear-gradient(180deg, #f1c40f, #f39c12);
+            z-index: 3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .ribbon-h::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* - Ribbon Vertical - */
+        .ribbon-v {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 28px;
+            height: 100%;
+            background: linear-gradient(90deg, #f1c40f, #f39c12);
+            z-index: 4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .ribbon-v::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -6px;
+            width: 6px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* - Bow - */
+        .bow {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            width: 80px;
+            height: 50px;
+        }
+
+        .bow-left,
+        .bow-right {
+            position: absolute;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            border-radius: 50% 50% 0 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .bow-left {
+            left: 0;
+            transform: rotate(-20deg);
+        }
+        .bow-right {
+            right: 0;
+            transform: rotate(70deg) scaleX(-1);
+        }
+
+        .bow-center {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #f39c12, #e67e22);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 6;
+        }
+
+        /* - Lid - */
+        .lid {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%) rotateX(0deg);
+            width: 230px;
+            height: 50px;
+            background: linear-gradient(180deg, #e74c3c, #c0392b);
+            border-radius: 12px 12px 4px 4px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform-origin: bottom center;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 7;
+        }
+
+        .lid::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+        }
+
+        .lid-ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 14px;
+            background: linear-gradient(180deg, #f1c40f, #f39c12);
+            z-index: 8;
+        }
+
+        .lid-ribbon-v {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 100%;
+            background: linear-gradient(90deg, #f1c40f, #f39c12);
+            z-index: 9;
+        }
+
+        /* - Open State - */
+        .gift-box.open .lid {
+            transform: translateX(-50%) rotateX(-110deg);
+        }
+
+        .gift-box.open .bow-left {
+            transform: rotate(-40deg) scale(1.2);
+        }
+
+        .gift-box.open .bow-right {
+            transform: rotate(90deg) scaleX(-1) scale(1.2);
+        }
+
+        /* ============================================================
+           SURPRISE TEXT
+           ============================================================ */
+        .surprise-text {
+            font-size: 48px;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255, 200, 0, 0.5), 0 0 60px rgba(255, 200, 0, 0.2);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-top: 10px;
+        }
+
+        .surprise-text.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .surprise-text .name {
+            color: #f1c40f;
+        }
+
+        /* ============================================================
+           SUBTEXT
+           ============================================================ */
+        .sub-text {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 18px;
+            margin-top: 8px;
+            opacity: 0;
+            transition: opacity 1s ease 0.5s;
+        }
+
+        .sub-text.show {
+            opacity: 1;
+        }
+
+        /* ============================================================
+           FLOATING ELEMENTS
+           ============================================================ */
+        .floating {
+            position: fixed;
+            pointer-events: none;
+            animation: floatUp linear forwards;
+            z-index: 10;
+            font-size: 30px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(-20vh) rotate(20deg) scale(1);
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================================
+           CLICK HINT
+           ============================================================ */
+        .click-hint {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer span {
+            color: #f1c40f;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 600px) {
+            .gift-box {
+                width: 200px;
+                height: 200px;
+            }
+            .box-body {
+                width: 160px;
+                height: 120px;
+            }
+            .lid {
+                width: 170px;
+                height: 40px;
+                top: -40px;
+            }
+            .ribbon-h {
+                height: 20px;
+            }
+            .ribbon-v {
+                width: 20px;
+            }
+            .bow {
+                transform: translateX(-50%) scale(0.7);
+                top: -15px;
+            }
+            .surprise-text {
+                font-size: 28px;
+            }
+            .sub-text {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .gift-box {
+                width: 160px;
+                height: 160px;
+            }
+            .box-body {
+                width: 130px;
+                height: 100px;
+            }
+            .lid {
+                width: 140px;
+                height: 32px;
+                top: -32px;
+            }
+            .surprise-text {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== STARS ===== -->
+    <div class="stars" id="stars"></div>
+
+    <!-- ===== MAIN ===== -->
+    <div class="container">
+
+        <!-- Gift Box -->
+        <div class="gift-box" id="giftBox" onclick="openGift()">
+            <div class="lid">
+                <div class="lid-ribbon-h"></div>
+                <div class="lid-ribbon-v"></div>
+            </div>
+            <div class="box-body"></div>
+            <div class="ribbon-h"></div>
+            <div class="ribbon-v"></div>
+            <div class="bow">
+                <div class="bow-left"></div>
+                <div class="bow-right"></div>
+                <div class="bow-center"></div>
+            </div>
+        </div>
+
+        <!-- Surprise Text -->
+        <div class="surprise-text" id="surpriseText">
+            🎂 Happy Birthday, <span class="name">Poonam!</span> 🎂
+        </div>
+
+        <div class="sub-text" id="subText">
+            🎉 Wishing you an amazing day filled with joy &amp; happiness! 🎉
+        </div>
+
+        <!-- Click Hint -->
+        <div class="click-hint" id="clickHint">🎁 Click the gift box to open!</div>
+
+        <!-- Footer -->
+        <div class="footer">Made with ❤️ by <span>Olly</span></div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  STARS
+        // ============================================================
+        (function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 120; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--d', (2 + Math.random() * 3) + 's');
+                star.style.animationDelay = (Math.random() * 3) + 's';
+                star.style.width = (1 + Math.random() * 3) + 'px';
+                star.style.height = star.style.width;
+                container.appendChild(star);
+            }
+        })();
+
+        // ============================================================
+        //  FLOATING ELEMENTS (Balloons, Stars, etc.)
+        // ============================================================
+        function createFloating() {
+            const elements = ['🎈', '🎉', '🎊', '✨', '🌟', '⭐', '🎂', '🎁'];
+            const el = document.createElement('div');
+            el.className = 'floating';
+            el.textContent = elements[Math.floor(Math.random() * elements.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.bottom = '-20px';
+            el.style.fontSize = (20 + Math.random() * 40) + 'px';
+            el.style.animationDuration = (4 + Math.random() * 4) + 's';
+            el.style.animationDelay = (Math.random() * 2) + 's';
+            document.body.appendChild(el);
+
+            setTimeout(() => el.remove(), 8000);
+        }
+
+        // ============================================================
+        //  OPEN GIFT
+        // ============================================================
+        let isOpen = false;
+
+        function openGift() {
+            if (isOpen) return;
+            isOpen = true;
+
+            const box = document.getElementById('giftBox');
+            const text = document.getElementById('surpriseText');
+            const sub = document.getElementById('subText');
+            const hint = document.getElementById('clickHint');
+
+            // Open box
+            box.classList.add('open');
+
+            // Show text
+            setTimeout(() => {
+                text.classList.add('show');
+            }, 400);
+
+            setTimeout(() => {
+                sub.classList.add('show');
+            }, 800);
+
+            // Hide hint
+            hint.style.opacity = '0';
+            hint.style.transition = 'opacity 0.5s';
+
+            // Create floating elements - multiple bursts
+            for (let i = 0; i < 25; i++) {
+                setTimeout(createFloating, i * 150);
+            }
+
+            // Keep creating more for 5 seconds
+            let count = 0;
+            const interval = setInterval(() => {
+                createFloating();
+                count++;
+                if (count > 30) clearInterval(interval);
+            }, 300);
+        }
+
+        // ============================================================
+        //  KEYBOARD SUPPORT
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openGift();
+            }
+        });
+
+        // ============================================================
+        //  AUTO-OPEN (Optional - remove comment to enable)
+        // ============================================================
+        // setTimeout(openGift, 1500);
+
+        console.log('🎂 Happy Birthday Poonam!');
+        console.log('❤️ Made by Olly');
+    </script>
+</body>
+</html>
