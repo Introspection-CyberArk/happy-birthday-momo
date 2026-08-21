@@ -316,6 +316,47 @@
             border-radius: 50%;
         }
 
+        /* ===== MUSIC CONTROL ===== */
+        .music-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 30px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .music-btn.playing {
+            animation: pulseBtn 1.5s infinite;
+        }
+
+        @keyframes pulseBtn {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(241, 196, 15, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(241, 196, 15, 0.6);
+            }
+        }
+
         /* ===== FOOTER ===== */
         .footer {
             position: fixed;
@@ -398,6 +439,13 @@
                 padding: 20px 15px;
                 margin-top: 20px;
             }
+            .music-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                bottom: 70px;
+                right: 20px;
+            }
             .footer {
                 font-size: 10px;
                 right: 15px;
@@ -413,6 +461,13 @@
                 width: 70px;
                 height: 70px;
             }
+            .music-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                bottom: 60px;
+                right: 15px;
+            }
         }
     </style>
 </head>
@@ -420,6 +475,17 @@
 
     <!-- ===== SPARKLE CANVAS ===== -->
     <canvas id="sparkleCanvas"></canvas>
+
+    <!-- ===== MUSIC PLAYER ===== -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="birthday.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- ===== MUSIC TOGGLE BUTTON ===== -->
+    <button class="music-btn playing" id="musicBtn" onclick="toggleMusic()">
+        🎵
+    </button>
 
     <!-- ===== MAIN CONTAINER ===== -->
     <div class="container">
@@ -440,7 +506,7 @@
 
         <!-- Message Card -->
         <div class="card">
-            <!-- PHOTO FRAME WITH POONAM'S PHOTO -->
+            <!-- PHOTO FRAME -->
             <div class="photo-frame">
                 <img src="poonam.png" alt="Poonam" />
             </div>
@@ -589,23 +655,4 @@
         }
 
         // Inject floatUp keyframe
-        const style2 = document.createElement('style');
-        style2.textContent = `
-            @keyframes floatUp {
-                0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
-                10% { opacity: 0.8; transform: translateY(-10vh) rotate(10deg) scale(1); }
-                100% { transform: translateY(-120vh) rotate(360deg) scale(0.5); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style2);
-
-        for (let i = 0; i < 10; i++) {
-            setTimeout(createHeart, i * 500);
-        }
-        setInterval(createHeart, 2000);
-
-        console.log('🎂 Happy Birthday Poonam!');
-        console.log('❤️ Made by Olly');
-    </script>
-</body>
-</html>
+        const style2 = document.createElement('sty
